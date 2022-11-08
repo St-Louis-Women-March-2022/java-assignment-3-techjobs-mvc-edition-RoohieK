@@ -21,7 +21,13 @@
                 <!-- TODO #2: Complete the View Jobs By Category Table. -->
 
                 <td>
-             <!--       <a th:href="@{/list/jobs(value=${columns.all})}" th:text="View All"></a> -->
+                    <th:block th:each="category : ${columns}">
+                        <ul>
+                            <li th:if='${category.key.equals("all")}' >
+                                <a th:href="@{/list/jobs(column=${category.key})}" > View All</a>
+                            </li>
+                        </ul>
+                    </th:block>
                 </td> <!-- Feel free to remove or modify this element if necessary. -->
 
                 <!-- *********************************************************************** -->
