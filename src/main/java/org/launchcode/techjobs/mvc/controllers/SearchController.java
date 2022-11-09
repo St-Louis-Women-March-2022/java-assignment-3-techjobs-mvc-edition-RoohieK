@@ -32,8 +32,12 @@ public class SearchController {
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm){
         model.addAttribute("columns", columnChoices);
         ArrayList<Job> jobs;
-        if (searchType.equals("all")){
-            jobs = JobData.findByValue(searchTerm);
+
+        if (searchType.equals("all") || searchTerm.isEmpty()){
+            jobs = JobData.findAll();
+            if(!searchTerm.isEmpty()){
+                jobs = JobData.findByValue(searchTerm);
+            }
             model.addAttribute("title", "Jobs with " + columnChoices.get(searchType) + ": " + searchTerm);
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
